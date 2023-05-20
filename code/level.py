@@ -22,8 +22,6 @@ class Level:
         self.coin_sound.set_volume(0.2)
         self.hit_sound = pygame.mixer.Sound("../audio/effects/hit.wav")
         self.hit_sound.set_volume(0.2)
-        self.jump_sound = pygame.mixer.Sound("../audio/effects/jump.wav")
-        self.jump_sound.set_volume(0.2)
         self.stomp_sound = pygame.mixer.Sound("../audio/effects/stomp.wav")
         self.stomp_sound.set_volume(0.2)
 
@@ -84,7 +82,7 @@ class Level:
         # decoration
         self.sky = Sky(8)
         level_width = len(terrain_layout[0]) * tile_size
-        self.water = Water(screen_height - 20, level_width)
+        self.water = Water(screen_height - 50, level_width)
         self.clouds = Clouds(400, level_width, 30)
 
     def create_tile_group(self, layout, type):
@@ -265,38 +263,6 @@ class Level:
         self.bg_palm_sprites.update(self.world_shift)
         self.bg_palm_sprites.draw(self.display_surface)
 
-        # dust particles
-        self.dust_sprite.update(self.world_shift)
-        self.dust_sprite.draw(self.display_surface)
-
-        # terrain
-        self.terrain_sprites.update(self.world_shift)
-        self.terrain_sprites.draw(self.display_surface)
-
-        # enemy
-        self.enemy_sprites.update(self.world_shift)
-        self.constraint_sprites.update(self.world_shift)
-        self.enemy_collision_reverse()
-        self.enemy_sprites.draw(self.display_surface)
-        self.explosion_sprites.update(self.world_shift)
-        self.explosion_sprites.draw(self.display_surface)
-
-        # crate
-        self.crate_sprites.update(self.world_shift)
-        self.crate_sprites.draw(self.display_surface)
-
-        # grass
-        self.grass_sprites.update(self.world_shift)
-        self.grass_sprites.draw(self.display_surface)
-
-        # coins
-        self.coin_sprites.update(self.world_shift)
-        self.coin_sprites.draw(self.display_surface)
-
-        # foreground palms
-        self.fg_palm_sprites.update(self.world_shift)
-        self.fg_palm_sprites.draw(self.display_surface)
-
         # player sprites
         self.player.update()
         self.horizontal_movement_collision()
@@ -313,12 +279,44 @@ class Level:
         self.check_death()
         self.check_win()
 
+        # water
+        self.water.draw(self.display_surface, self.world_shift)
+
+        # dust particles
+        self.dust_sprite.update(self.world_shift)
+        self.dust_sprite.draw(self.display_surface)
+
+        # terrain
+        self.terrain_sprites.update(self.world_shift)
+        self.terrain_sprites.draw(self.display_surface)
+
+        # crate
+        self.crate_sprites.update(self.world_shift)
+        self.crate_sprites.draw(self.display_surface)
+
+        # enemy
+        self.enemy_sprites.update(self.world_shift)
+        self.constraint_sprites.update(self.world_shift)
+        self.enemy_collision_reverse()
+        self.enemy_sprites.draw(self.display_surface)
+        self.explosion_sprites.update(self.world_shift)
+        self.explosion_sprites.draw(self.display_surface)
+
+        # grass
+        self.grass_sprites.update(self.world_shift)
+        self.grass_sprites.draw(self.display_surface)
+
+        # coins
+        self.coin_sprites.update(self.world_shift)
+        self.coin_sprites.draw(self.display_surface)
+
+        # foreground palms
+        self.fg_palm_sprites.update(self.world_shift)
+        self.fg_palm_sprites.draw(self.display_surface)
+
 
         # coin collision
         self.check_coin_collisions()
 
         # enemy collision
         self.check_enemy_collisions()
-
-        # water
-        self.water.draw(self.display_surface, self.world_shift)

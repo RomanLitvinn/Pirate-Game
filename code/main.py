@@ -10,7 +10,7 @@ class Game:
     def __init__(self):
 
         # game attributes
-        self.max_level = 0
+        self.max_level = 5
         self.max_health = 100
         self.cur_health = 100
         self.coins = 0
@@ -21,9 +21,7 @@ class Game:
         # overworld creation
         self.overworld = Overworld(0, self.max_level, screen, self.create_level)
         self.status = 'overworld'
-        pygame.mixer.music.load("../audio/overworld_music.wav")
-        pygame.mixer.music.set_volume(0.1)
-        pygame.mixer.music.play()
+        self.play_music()
 
     def create_level(self, current_level):
         self.level = Level(current_level, screen, self.create_overworld, self.change_coins, self.change_health)
@@ -53,6 +51,7 @@ class Game:
             self.play_music()
 
     def play_music(self):
+        pygame.mixer.music.set_volume(0.1)
         if self.status == "overworld":
             pygame.mixer.music.load("../audio/overworld_music.wav")
             pygame.mixer.music.play(loops=-1)
@@ -74,6 +73,8 @@ class Game:
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Mr. Pirate")
+pygame.display.set_icon(pygame.image.load("../graphics/character/hat.png").convert_alpha())
 clock = pygame.time.Clock()
 game = Game()
 

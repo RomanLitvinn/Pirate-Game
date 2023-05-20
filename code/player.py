@@ -12,6 +12,10 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animations['idle'][self.frame_index]
         self.rect = self.image.get_rect(topleft=pos)
 
+        # sounds
+        self.jump_sound = pygame.mixer.Sound("../audio/effects/jump.wav")
+        self.jump_sound.set_volume(0.1)
+
         # dust particles
         self.import_dust_run_particles()
         self.dust_frame_index = 0
@@ -105,6 +109,7 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_SPACE] or keys[pygame.K_w] or keys[pygame.K_UP]:
             if self.on_ground:
+                self.jump_sound.play()
                 self.jump()
                 self.create_jump_particles(self.rect.midbottom)
 
