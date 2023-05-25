@@ -320,3 +320,4 @@ class Level:
 
         # enemy collision
         self.check_enemy_collisions()
+
